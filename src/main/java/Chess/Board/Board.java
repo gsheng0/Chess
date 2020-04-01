@@ -40,6 +40,7 @@ public class Board {
                 output.add(piece);
         return output;
     }
+    public HashMap<Color, King> getKings() { return kings; }
     public int getBoardNumber() { return number; }
     public void remove(Piece piece) { pieces.remove(piece); }
     public Vector size() { return new Vector(board.length, board[0].length); }

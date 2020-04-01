@@ -39,6 +39,7 @@ public class King extends Piece {
         ArrayList<Tile> possibleMoves = new ArrayList<>();
         Board board = super.getBoard();
         Vector current = super.getLocation();
+        updateCheck();
         for(Vector move : movePattern)
         {
             Vector possible = current.add(move);
@@ -51,31 +52,11 @@ public class King extends Piece {
     @Override
     public void updatePossibleMoves() {
         this.updatePossibleMovesWithoutCheck();
-        super.setPossibleMoves(this.getBoard().getKing(this.getSide()).inCheck() ? super.getCheckResponseMoves(this.getPossibleMoves()) : this.getPossibleMoves());
+        //super.setPossibleMoves(this.getBoard().getKing(this.getSide()).inCheck() ? super.getCheckResponseMoves() : this.getPossibleMoves());
     }
 
-    public boolean inCheck(){
-        return !isSafe(getTile());
-    }
-
-    public void updateThreateningPieces(){
-        ArrayList<Piece> output = new ArrayList<>();
-        ArrayList<Piece> opposition = getBoard().getPieces(this.getSide() == Color.WHITE ? Color.BLACK : Color.WHITE);
-        for(Piece piece : opposition)
-        {
-            if(piece.truePieceType() != King.class){
-                for (Tile possible : piece.getPossibleMoves()) {
-                    if(possible.equals(this.getTile())) {
-                        output.add(piece);
-                        break;
-                    }
-                }
-            }
-        }
-        threateningPieces = output;
-    }
-
-    public ArrayList<Piece> getThreateningPieces() { return threateningPieces; }
+    public boolean inCheck() { return check; }
+    public void updateCheck(){ check = !isSafe(getTile()); }
 
     private boolean isSafe(Tile tile)
     {

@@ -58,7 +58,7 @@ public class Pawn extends Piece {
     @Override
     public void updatePossibleMoves() {
         updatePossibleMovesWithoutCheck();
-        super.setPossibleMoves(this.getBoard().getKing(this.getSide()).inCheck() ? super.getCheckResponseMoves(this.getPossibleMoves()) : this.getPossibleMoves());
+        super.setPossibleMoves(this.getBoard().getKing(this.getSide()).inCheck() ? super.getCheckResponseMoves() : this.getPossibleMoves());
     }
 
     @Override

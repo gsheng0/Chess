@@ -48,6 +48,6 @@ public class Knight extends Piece {
     @Override
     public void updatePossibleMoves() {
         this.updatePossibleMovesWithoutCheck();
-        super.setPossibleMoves(this.getBoard().getKing(this.getSide()).inCheck() ? super.getCheckResponseMoves(this.getPossibleMoves()) : this.getPossibleMoves());
+        super.setPossibleMoves(this.getBoard().getKing(this.getSide()).inCheck() ? super.getCheckResponseMoves() : this.getPossibleMoves());
     }
 }

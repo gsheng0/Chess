@@ -4,11 +4,13 @@ import Chess.Board.Board;
 import Chess.Board.BoardPreset;
 import Chess.Board.Color;
 import Chess.Board.Tile;
+import Chess.Piece.King;
 import Chess.Piece.Piece;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class App extends JPanel {
     private JFrame frame;
@@ -21,6 +23,7 @@ public class App extends JPanel {
         board = new Board(BoardPreset.NORMAL);
         games.add(new Board(BoardPreset.NORMAL));
         listener.setBoard(board);
+
         frame = new JFrame("Chess");
         frame.add(this);
         frame.addMouseListener(listener);
@@ -42,6 +45,18 @@ public class App extends JPanel {
                 g.setColor(board.get(x, y).getColor() == Color.WHITE ? java.awt.Color.WHITE : java.awt.Color.BLACK);
                 g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
             }
+        }
+
+        for(Color color : board.getKings().keySet())
+        {
+            King king = board.getKing(color);
+            try {
+                if (king.inCheck()) {
+                    g.setColor(java.awt.Color.RED);
+                    g.fillRect(king.getLocation().x * TILE_SIZE, king.getLocation().y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+                }
+            }
+            catch(Exception e) { }
         }
 
         if(listener.hasSelection()) {
